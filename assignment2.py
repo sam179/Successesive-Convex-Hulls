@@ -32,7 +32,7 @@ def Gift_Wrapping(Points,n):
 
 	pointOnHull = initialPoint = min_idx[0]
 
-	Hull = np.empty(1)
+	Hull = np.empty(1,dtype=int)
 
 	while True:
 
@@ -53,8 +53,11 @@ def Gift_Wrapping(Points,n):
 			break
 
 	Hull = np.delete(Hull,0)
+	Points = np.delete(Points,Hull,0)
+	
+	for x in Hull: print x
 
-	for x in Hull:
+	for x in Points:
 
 		print x
 
@@ -69,8 +72,8 @@ def main():
 	#sorting points
 	Points[Points[:0].argsort()]
 
-	#for p in Points:
-	#	print p
+	for p in Points:
+		print p
 
 	Gift_Wrapping(Points,n)
 
