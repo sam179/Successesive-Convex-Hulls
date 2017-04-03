@@ -1,10 +1,9 @@
 import numpy as np 
 
-def Orientation(pointOnHull,x,temporaryPoint):
+def Orientation(a,x,b):
 
-	val = 0
-	#print temporaryPoint.shape
-	val = ((x[1]-pointOnHull[1])*(temporaryPoint[0]-x[0]) - (x[0]-pointOnHull[0])*(temporaryPoint[1]-x[1]))
+	#print b
+	val = ((x[1]-a[1])*(b[0]-x[0]) - (x[0]-a[0])*(b[1]-x[1]))
 	#print val
 	if val==0:
 		return 0
@@ -13,29 +12,39 @@ def Orientation(pointOnHull,x,temporaryPoint):
 	else:
 		return 2
 
+def func(Points,a):
 
-def Gift_Wrapping(Points):
+	idx=0
 
-	initialPoint = pointOnHull = 0
+	for x in Points:
 
-	temporaryPoint = pointOnHull
+		if x[0]==a[0] and x[1]==a[1]:
+			return idx
 
-	Hull = np.array((0,2),int)
-	ikx=0
+		idx = idx + 1
+
+
+def Gift_Wrapping(Points,n):
+
+	min_idx = np.argmin(Points,axis=0)
+	#print min_idx[0]
+
+
+	pointOnHull = initialPoint = min_idx[0]
+
+	Hull = np.empty(1)
+
 	while True:
-		
-		Hull = np.vstack([Hull,Points[pointOnHull]])
-		
-		temporaryPoint = (pointOnHull+1)%Points.shape[0]; 
-		idx=0
+
+		Hull = np.append(Hull,pointOnHull)
+
+		temporaryPoint = (pointOnHull+1)%n
+
 		for x in Points:
 
 			if Orientation(Points[pointOnHull],x,Points[temporaryPoint])==2:
 
-				temporaryPoint = idx
-				#print temporaryPoint.shape
-			idx=idx+1	
-
+				temporaryPoint = func(Points,x)
 
 		pointOnHull = temporaryPoint
 
@@ -43,25 +52,11 @@ def Gift_Wrapping(Points):
 
 			break
 
-		print Hull.shape		
-		if ikx==0:
+	Hull = np.delete(Hull,0)
 
-			Hull = np.delete(Hull,0)
-			Hull = np.delete(Hull,0)
-		
-		print Hull.shape
-		ikx=ikx+1
+	for x in Hull:
 
-
-	print Hull.shape
-	for p in Hull:
-
-		print p
-		index = np.argwhere(Points==p)
-		Points = np.delete(Points,index)
-
-
-	#for p in Points:
+		print x
 
 
 def main():
@@ -69,15 +64,15 @@ def main():
 	#Entering no. of points
 	n = input("Enter the value for n: ")
 
-	Points = np.random.randint(100000,size=(n,2))
+	Points = np.random.randint(10,size=(n,2))
 
 	#sorting points
 	Points[Points[:0].argsort()]
 
 	#for p in Points:
-		#print p
+	#	print p
 
-	Gift_Wrapping(Points)
+	Gift_Wrapping(Points,n)
 
 if __name__=="__main__":
 
