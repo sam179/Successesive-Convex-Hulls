@@ -1,4 +1,11 @@
+
+## Group 34 (16114048_16114050) - Samar Singh Holkar & Sachin Aggarwal
+## Date April 6th 2017
+## Assignment2.py - Jarvis March and Quick Hull coded in the file 
+
+################################################################################################################################################
 import numpy as np 
+import matplotlib.pyplot as plt
 
 def Orientation(a,x,b):
 
@@ -132,7 +139,9 @@ def caller_func(Points):
 
 	Current_Hull = get_hull_points(Points)
 
-	print "yo"
+	draw_hull(Current_Hull)
+
+	print "Point of the current hull:"
 	for x in Current_Hull: print x
 
 	temp_list = []
@@ -145,6 +154,15 @@ def caller_func(Points):
 #############################################################################################################################################
 ## Gift Wrapping Algorithm
 #############################################################################################################################################
+def draw_hull(Points):
+
+	n = len(Points)
+
+	for i in range(n):
+
+		plt.plot([Points[i][0], Points[(i+1)%n][0]], [Points[i][1],Points[(i+1)%n][1]],'k-',lw=2)
+		plt.pause(0.08)
+
 def Gift_Wrapping(Points,n):
 
 	min_idx = np.argmin(Points,axis=0)
@@ -175,13 +193,17 @@ def Gift_Wrapping(Points,n):
 
 	Hull = np.delete(Hull,0)
 
+	pointList = []
+	for x in Hull:
+		pointList.append(Points[x])
 
+	draw_hull(pointList)
 
 	Points = np.delete(Points,Hull,0)
 	
 	for x in Hull: print x
 
-	#print "yo"
+	print "Points of the current hull:"
 	
 	#print Points
 	for x in Points:
@@ -213,7 +235,17 @@ def main():
 	for p in Points:
 		print p
 
+	for x in Points:
+
+		plt.scatter(x[0],x[1])
+		#plt.pause(0.5)
+	
+
 	Gift_Wrapping(Points,n)
+
+	plt.show()
+	plt.pause(5)
+
 
 if __name__=="__main__":
 
