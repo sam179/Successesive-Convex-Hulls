@@ -8,9 +8,10 @@ Jarvis March:
 
 	•	Initialize p as leftmost point.
 	•	Do following while we don’t come back to the first (or leftmost) point.
-- The next point q is the point such that the triplet (p, q, r) is counterclockwise for any other point r.
-- next[p] = q (Store q as next of p in the output convex hull).
-- p = q (Set p as q for next iteration).
+	
+	- The next point q is the point such that the triplet (p, q, r) is counterclockwise for any other point r.
+	- next[p] = q (Store q as next of p in the output convex hull).
+	- p = q (Set p as q for next iteration).
 
 Quick Hull:
 
