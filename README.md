@@ -1,6 +1,8 @@
 # Successesive-Convex-Hulls
 
 Algorithms:
+
+
 Jarvis March:
 	•	Initialize p as leftmost point.
 	•	Do following while we don’t come back to the first (or leftmost) point.
